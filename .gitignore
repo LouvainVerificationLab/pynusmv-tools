@@ -1,0 +1,4 @@
+/pynusmv_tools.egg-info/*
+/.eggs/*
+/build/*
+/dist/*
