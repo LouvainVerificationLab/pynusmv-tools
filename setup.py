@@ -9,10 +9,10 @@
 #
 # Author: X. Gillard <xavier.gillard [at] uclouvain.be>
 '''
-from setuptools                    import setup, find_packages
+from setuptools import setup, find_packages
 
 setup(name             = 'pynusmv-tools',
-      version          = "1.0rc1",
+      version          = "1.0rc3",
       author           = "Simon BUSARD, Xavier GILLARD",
       author_email     = "simon.busard@uclouvain.be, xavier.gillard@uclouvain.be",
       url              = "http://lvl.info.ucl.ac.be/Tools/PyNuSMV",
