@@ -2,3 +2,4 @@
 /.eggs/*
 /build/*
 /dist/*
+/**/__pycache__/*
