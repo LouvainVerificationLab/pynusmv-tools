@@ -1,8 +1,8 @@
-from pynusmv.nusmv.parser import parser
+from pynusmv_lower_interface.nusmv.parser import parser
 from pynusmv.dd import BDD
 from pynusmv.mc import eval_ctl_spec
 
-from pynusmv.nusmv.fsm.bdd import bdd as nsBddFsm
+from pynusmv_lower_interface.nusmv.fsm.bdd import bdd as nsBddFsm
 
 def check(fsm, spec, context=None):
     """

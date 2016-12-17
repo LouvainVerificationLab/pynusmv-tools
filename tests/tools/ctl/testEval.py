@@ -5,7 +5,7 @@ from pynusmv.dd import BDD
 from pynusmv.init import init_nusmv, deinit_nusmv
 from pynusmv.parser import parse_simple_expression as parseSexp
 from pynusmv import prop
-from pynusmv.nusmv.opt import opt as nsopt
+from pynusmv_lower_interface.nusmv.opt import opt as nsopt
 
 from tools.ctl.eval import eval_ctl
 

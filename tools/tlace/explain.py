@@ -1,7 +1,7 @@
 from .tlacenode import Tlacenode
 from .tlacebranch import Tlacebranch
 
-from pynusmv.nusmv.parser import parser
+from pynusmv_lower_interface.nusmv.parser import parser
 
 from pynusmv.prop import (true as sptrue, false as spfalse, imply, iff,
                                ex, eg, ef, eu, ew, ax, ag, af, au, aw)

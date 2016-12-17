@@ -3,12 +3,12 @@ import unittest
 from pynusmv.init import init_nusmv, deinit_nusmv
 from pynusmv import glob
 
-from pynusmv.nusmv.parser import parser as nsparser
-from pynusmv.nusmv.compile import compile as nscompile
-from pynusmv.nusmv.node import node as nsnode
-from pynusmv.nusmv.set import set as nsset
-from pynusmv.nusmv.utils import utils as nsutils
-from pynusmv.nusmv.compile.symb_table import symb_table as nssymb_table
+from pynusmv_lower_interface.nusmv.parser import parser as nsparser
+from pynusmv_lower_interface.nusmv.compile import compile as nscompile
+from pynusmv_lower_interface.nusmv.node import node as nsnode
+from pynusmv_lower_interface.nusmv.set import set as nsset
+from pynusmv_lower_interface.nusmv.utils import utils as nsutils
+from pynusmv_lower_interface.nusmv.compile.symb_table import symb_table as nssymb_table
 
 class TestVariables(unittest.TestCase):
     

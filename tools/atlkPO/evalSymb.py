@@ -16,7 +16,7 @@ from pynusmv.utils import fixpoint as fp
 from pynusmv import node, glob
 from pynusmv.exception import PyNuSMVError
 
-from pynusmv.nusmv.compile.symb_table import symb_table as nssymb_table
+from pynusmv_lower_interface.nusmv.compile.symb_table import symb_table as nssymb_table
 
 from ..atlkFO.ast import (TrueExp, FalseExp, Init, Reachable,
                           Atom, Not, And, Or, Implies, Iff, 

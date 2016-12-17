@@ -4,7 +4,7 @@ from pynusmv.dd import BDD
 from pynusmv.init import init_nusmv, deinit_nusmv
 from pynusmv.mc import eval_simple_expression
 
-from pynusmv.nusmv.dd import dd as nsdd
+from pynusmv_lower_interface.nusmv.dd import dd as nsdd
 
 from tools.mas import glob
 

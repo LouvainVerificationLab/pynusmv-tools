@@ -1,8 +1,8 @@
 import unittest
 
-from pynusmv.nusmv.cmd import cmd
-from pynusmv.nusmv.compile.symb_table import symb_table
-from pynusmv.nusmv.enc.bdd import bdd as bddEnc
+from pynusmv_lower_interface.nusmv.cmd import cmd
+from pynusmv_lower_interface.nusmv.compile.symb_table import symb_table
+from pynusmv_lower_interface.nusmv.enc.bdd import bdd as bddEnc
 
 from pynusmv.fsm import BddFsm
 from pynusmv.prop import PropDb

@@ -1,8 +1,8 @@
 from pynusmv.dd import BDD
 from pynusmv.fsm import BddFsm, BddTrans
-from pynusmv.nusmv.node import node as nsnode
-from pynusmv.nusmv.parser import parser as nsparser
-from pynusmv.nusmv.dd import dd as nsdd
+from pynusmv_lower_interface.nusmv.node import node as nsnode
+from pynusmv_lower_interface.nusmv.parser import parser as nsparser
+from pynusmv_lower_interface.nusmv.dd import dd as nsdd
 from .exception import UnknownAgentError
 
 class MAS(BddFsm):

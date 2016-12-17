@@ -1,6 +1,6 @@
 import unittest
 
-from pynusmv.nusmv.cmd import cmd
+from pynusmv_lower_interface.nusmv.cmd import cmd
 
 from pynusmv.fsm import BddFsm
 from pynusmv.prop import PropDb
