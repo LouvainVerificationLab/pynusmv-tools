@@ -32,7 +32,9 @@ setup(name             = 'pynusmv-tools',
             'atlk_po=tools.atlkPO.check:main',
             # utils
             'smv2dot=tools.dotDump:main',
-            'smv_cmp=tools.compare:main'
+            'smv_cmp=tools.compare:main',
+            # BMC tools
+            'diagnos=tools.diagnosability:main'
         ]
       }
 )
