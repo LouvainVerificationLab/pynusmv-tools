@@ -1,0 +1,38 @@
+MODULE main
+-- #############################################################################
+--
+-- This is a (made up) non-deterministic model example to illustrate the
+-- capabilities of diagnosability verification with bounded model checking.
+--
+-- This model represents the state of a web component and how one imagines
+-- it could react to the mouse events.
+--
+-- To get an example, consider the following two conditions:
+-- * status = inactive ; status = active    ** is diagnosable
+-- * status = active   ; status = highlight ** is not diagnosable (because of hover)
+--
+-- =============================================================================
+-- Here are sample commands you might want to use to learn about the diag. tool:
+-- =============================================================================
+--
+-- python3 -m tools.diagnosability -s "status = active ; status = inactive" ../examples/input.smv
+-- python3 -m tools.diagnosability -s "status = active ; status = highlight" ../examples/input.smv
+--
+-- #############################################################################
+IVAR
+  -- Input variables are the only observable parts of the system behavior
+  -- in our case, only the mouse actions are observable.
+  mouse : {up, down, hover};
+
+VAR
+  -- The goal is to guess what the status of the rest of the system (here only
+  -- the status variable) is.
+  status : {active, inactive, highlight};
+
+ASSIGN
+  init(status) := inactive;
+  next(status) := case
+                    mouse = up   : inactive;
+                    mouse = down : active;
+                    mouse = hover: {active, highlight};
+                  esac;

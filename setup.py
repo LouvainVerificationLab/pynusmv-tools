@@ -32,7 +32,17 @@ setup(name             = 'pynusmv-tools',
             'atlk_po=tools.atlkPO.check:main',
             # utils
             'smv2dot=tools.dotDump:main',
-            'smv_cmp=tools.compare:main'
+            'smv_cmp=tools.compare:main',
+            # BMC tools
+            'diagnos=tools.diagnosability:main',
+            # LTL BMC - directly using NuSMV api to generate the problem (fastest)
+            'bmc_ltl=tools.bmcLTL.alternative1:main',
+            # LTL BMC - using the lower interface functions to generate the
+            # problem (close to a performance tie with alternative1 + most flexible
+            # implementation)
+            'bmc_ltl_li=tools.bmcLTL.alternative2:main',
+            # LTL BMC - not using apis from pynusmv.bmc.*
+            'bmc_ltl_py=tools.bmcLTL.main:main'
         ]
       }
 )

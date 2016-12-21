@@ -1,0 +1,17 @@
+MODULE main
+--
+-- This example model has no meaningful sense. It is purely made up in order to create a setup where one can
+-- easily verify that the invariants are enforced or not.
+--
+-- Indeed, the invariants in this setup are ALWAYS false, which means that any verification with the invar enforced
+-- is vacuously true. When the invariant is not enforced, v can non-deterministically take any value.
+--
+-- Hence, to test the correct enforcement of the invariants, one just needs to verify that [] v holds.
+--
+VAR
+  v: boolean;
+
+INVAR
+  FALSE
+
+LTLSPEC G v -- holds only if the invar is enabled.
