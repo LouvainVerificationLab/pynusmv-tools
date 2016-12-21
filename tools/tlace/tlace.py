@@ -48,10 +48,11 @@ def check_and_explain(allargs):
             
             print()
 
+def main():
+    '''TLACE entry point'''
+    # Initialize/Quit NuSMV
+    with init_nusmv():
+        check_and_explain(sys.argv[1:])
 
-if __name__ == '__main__': 
-    # Initialize NuSMV
-    init_nusmv()   
-    check_and_explain(sys.argv[1:])
-    # Quit NuSMV
-    deinit_nusmv()
+if __name__ == "__main__":
+    main()

@@ -178,8 +178,8 @@ def compare(model1, model2, comparisons=None):
             print(title)
             print("=" * 79)
             print(("\n" + ("-" * 79 + "\n") * 2).join(transitions))
-        
-if __name__ == "__main__":
+
+def main():
     # Parse arguments
     parser = argparse.ArgumentParser(description='SMV model comparator.')
     # Populate arguments:
@@ -206,6 +206,9 @@ if __name__ == "__main__":
         comparisons.add("common")
     if len(comparisons) <= 0:
         comparisons = None
-    
-    
+
+
     compare(args.first, args.second, comparisons)
+
+if __name__ == "__main__":
+    main()

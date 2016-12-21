@@ -548,6 +548,8 @@ agent being an atom and group a comma-separated list of agents.""")
                     
             prev = state
 
+def main():
+    CTLK_shell().cmdloop()
 
 if __name__ == "__main__":
-    CTLK_shell().cmdloop()
+    main()

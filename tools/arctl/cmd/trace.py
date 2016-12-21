@@ -127,6 +127,9 @@ class ARCTLshell(cmd.Cmd):
         return True
         
         
+def main():
+    'The script entry point'
+    ARCTLshell().cmdloop()
 
 if __name__ == "__main__":
-    ARCTLshell().cmdloop()
+    main()

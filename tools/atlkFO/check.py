@@ -67,7 +67,9 @@ def process(allargs):
                 print("[ERROR]", str(e))
 
 
+def main():
+    with init_nusmv():
+        process(sys.argv[1:])
+        
 if __name__ == '__main__':
-    init_nusmv()   
-    process(sys.argv[1:])
-    deinit_nusmv()
+    main()

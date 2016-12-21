@@ -26,7 +26,7 @@ Tree-Like Annotated Counter-Examples (TLACEs for short) are rich branching count
 
 To run this tool, launch the following command from the src/ directory of PyNuSMV package.
 ````
-python3 -m tools.tlace.tlace MODEL
+tlace MODEL
 ````
 where MODEL is an SMV model. The tool computes the given model, check all its CTL specifications and produces a TLACE explaining why each violated specification is violated.
 
@@ -40,7 +40,7 @@ Finally, this tool provides two CLI to use these functionalities; these CLI are 
 
 To run this tool, launch the following command:
 ````
-python3 -m tools.arctl.cmd.trace
+arctl
 ````
 
 This gives a prompt accepting some commands. The list of accepted commands can be shown using the help command.
@@ -59,7 +59,7 @@ More precisely, this tool accepts any SMV model and follows these conventions:
 
 To run this tool, launch the following command:
 ````
-python3 -m tools.ctlk.cmd.cmd
+ctlk
 ````
 
 This gives a prompt accepting some commands listed by the "help" command. This prompt accepts, for example, the "model" command to specify an SMV model, the "check" command to verify a CTLK property, or the "explain" command to explain the model checking result. In particular, the "explain" command opens another prompt to explore the diagnostic; the help can be accessed through the "help" command. Finally, note that any command has its own help message, accessible through the "help <cmd>" command.
@@ -68,7 +68,7 @@ This gives a prompt accepting some commands listed by the "help" command. This p
 ### CTL model checking
 PyNuSMV is shipped with a reimplementation of CTL model checking, for performance measures. This tool can be run with
 ````
-python3 -m tools.ctl.CTLcheck [model]
+ctl [model]
 ````
 where [model] is the path to a NuSMV model. The tool loads the model, checks every CTL specification in the model file and outputs its truth value.
 
@@ -76,7 +76,7 @@ where [model] is the path to a NuSMV model. The tool loads the model, checks eve
 ### Fair CTL model checking
 A reimplementation of Fair CTL model checking is provided. This tool can be run with
 ````
-python3 -m tools.fairctl.FairCTLcheck [model]
+fairctl [model]
 ````
 where model is the path to a NuSMV model. The tool loads the model, checks every CTL specification in the model file (under fairness constraints of the model) and outputs its truth value.
 
@@ -100,29 +100,29 @@ python3 -m tools.atl.check [model]
 where model is the path to an SMV model representing a Multi-agent system (see above). The tool loads the model and starts a minimal command-line interface. Every typed ATL formula is checked and the result of the verification is given at standard output. The command-line interface can be exited with EOF (CTRL-D).
 
 The grammar for ATL properties phi is the following:
-
+````
   phi ::= EXPR | '(' phi ')' | phi '&' phi | phi '|' phi | '~'phi | phi '->' phi
           | phi '<->' phi | '<' group '>' psi | '[' GROUP ']' psi
   psi ::= 'X' phi | 'G' phi | 'F' phi | '[' phi 'U' phi ']' | '[' phi 'W' phi ']'
-
+````
 where EXPR is any simple expression over variables of the system, enclosed into simple quotes (e.g. EXPR = 'transmission = completed' or EXPR = 'v = 3'), and GROUP is a list of agent names enclosed into simple quotes, separated by commas (e.g. GROUP = 'sender', 'transmitter' or GROUP = 'dealer').
 
 
 ### Model checking ATLK with full and partial observability
 An implementation of model checking algorithms for ATLK with full and partial observability [BPQR13] is provided. This tool can be run with
 ````
-python3 -m tools.atlkFO.check [model]
+atlk_fo [model]
 ````
 for the full observability setting, and with
 ````
-python3 -m tools.atlkPO.check [model]
+atlk_po [model]
 ````
 for the partial observability setting.
 
 [model] is the path to an SMV model representing a Multi-agent system (see above). The tool loads the model and starts a minimal command-line interface. Every typed ATLK formula is checked and the result of the verification is given at standard output. The command-line interface can be exited with EOF (CTRL-D).
 
 The grammar for ATLK properties phi (under both semantics) is the following:
-
+````
   phi ::= EXPR | '(' phi ')' | phi '&' phi | phi '|' phi | '~'phi | phi '->' phi
           | phi '<->' phi | '<' group '>' psi | '[' GROUP ']' psi
           | 'A' psi | 'E' psi | 'nK' '<' AGENT '>' phi | 'K' '<' AGENT '>' phi
@@ -130,14 +130,14 @@ The grammar for ATLK properties phi (under both semantics) is the following:
           | 'nD' '<' GROUP '>' phi | 'D' '<' GROUP '>' phi
           | 'nC' '<' GROUP '>' phi | 'C' '<' GROUP '>' phi
   psi ::= 'X' phi | 'G' phi | 'F' phi | '[' phi 'U' phi ']' | '[' phi 'W' phi ']'
-
+````
 where EXPR is any simple expression over variables of the system, enclosed into simple quotes (e.g. `EXPR = 'transmission = completed'` or `EXPR = 'v = 3'`), AGENT is an agent name enclosed into simple quotes, and GROUP is a comma-separated list of agent names (e.g. GROUP = 'sender', 'transmitter' or AGENT = 'dealer').
 
 
 ### DOT model export
 A DOT model export tool is provided. To run this tool, run
 ````
-python3 -m tools.dotDump model
+smv2dot model
 ````
 where model is the path to an SMV model. The output of the tool is a DOT representation of the reachable state-space of the model, printed on standard output (copy/paste the output in a file or redirect sdtout into a file). This is useful to get an overview of the state-space and to inspect more precisely the model in a visual way.
 
@@ -145,7 +145,7 @@ where model is the path to an SMV model. The output of the tool is a DOT represe
 ### Models comparator
 A tool to compare to NuSMV models is provided. To run this tool, run
 ````
-python3 -m tools.compare first second
+smv_cmp first second
 ````
 where first and second are paths to two SMV models. The output of the tool is a
 comparison of both models in terms of states and transitions. The tool is
@@ -157,10 +157,10 @@ other.
 
 
 ## REFERENCES
-[BP12] Simon Busard, Charles Pecheur: Rich Counter-Examples for Temporal-Epistemic Logic Model Checking. IWIGP 2012: 39-53
-[BPQR13] Simon Busard, Charles Pecheur, Hongyang Qu, Franco Raimondi: Reasoning about Strategies under Partial Observability and Fairness Constraints. Proceedings of SR 2013, EPTCS Vol. 112, pp. 71–79, 2013.
-[PL03] W.Penczek, A.Lomuscio: Verifying epistemic properties of multi-agent systems via bounded model checking. Fundamenta Informaticae, 55(2) :167–185, 2003.
-[PR07] Charles Pecheur, Franco Raimondi: Symbolic Model Checking of Logics with Actions. MoChArt 2006: 113-128
+* [BP12] Simon Busard, Charles Pecheur: Rich Counter-Examples for Temporal-Epistemic Logic Model Checking. IWIGP 2012: 39-53
+* [BPQR13] Simon Busard, Charles Pecheur, Hongyang Qu, Franco Raimondi: Reasoning about Strategies under Partial Observability and Fairness Constraints. Proceedings of SR 2013, EPTCS Vol. 112, pp. 71–79, 2013.
+* [PL03] W.Penczek, A.Lomuscio: Verifying epistemic properties of multi-agent systems via bounded model checking. Fundamenta Informaticae, 55(2) :167–185, 2003.
+* [PR07] Charles Pecheur, Franco Raimondi: Symbolic Model Checking of Logics with Actions. MoChArt 2006: 113-128
 
 ## Credits
 PyNuSMV is developed, maintained and distributed by the LVL Group at Université

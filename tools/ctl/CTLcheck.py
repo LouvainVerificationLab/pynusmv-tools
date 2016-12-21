@@ -30,8 +30,7 @@ def check(modelPath, evalSpecs=True):
                 # We could generate counter-examples here
     deinit_nusmv()
 
-
-if __name__ == '__main__':
+def main():
     if len(sys.argv) < 2:
         print("[ERROR] Missing model.")
     else:
@@ -39,3 +38,6 @@ if __name__ == '__main__':
             check(sys.argv[-1], not "-dcx" in sys.argv)
         except PyNuSMVError as e:
             print("[Error]", str(e))
+
+if __name__ == '__main__':
+    main()
