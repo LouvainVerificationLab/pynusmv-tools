@@ -1,0 +1,10 @@
+MODULE main
+-- An example that uses numeric variables
+VAR
+  a : 0 .. 10;
+
+ASSIGN
+  init(a) := 0;
+  next(a) := (a + 1) mod 7;
+
+LTLSPEC G (a < 7)
