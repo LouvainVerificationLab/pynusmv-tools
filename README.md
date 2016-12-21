@@ -95,7 +95,7 @@ The assumptions on the given SMV model representing a MAS are the following:
 ### ATL model checking
 An implementation of ATL model checking is provided, relying on the MAS library. This tool can be run with
 ````
-python3 -m tools.atl.check [model]
+atl [model]
 ````
 where model is the path to an SMV model representing a Multi-agent system (see above). The tool loads the model and starts a minimal command-line interface. Every typed ATL formula is checked and the result of the verification is given at standard output. The command-line interface can be exited with EOF (CTRL-D).
 
