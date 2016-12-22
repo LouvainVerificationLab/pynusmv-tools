@@ -155,12 +155,89 @@ relations. The tool can, in this case, show states that are in one model but
 not in another, as well as transitions that appear in one model but not in the
 other.
 
+## Bounded Model checking
+### Diagnosability
+This tool adopts the approach of [PCC02] and performs a bounded diagnosability
+test of a system represented as an SMV model. To run the tool, just use the
+`diagnos` command. Complete usage information is available using
+
+````
+diagnos --help
+````
+
+#### More information
+More information and details about this tool can be found in sections 4.3 of
+[GP16]http://dial.uclouvain.be/downloader/downloader.php?pid=thesis%3A4575&datastream=PDF_01
+
+### BMC LTL
+The LTL bounded model checking verifier provided in this package comes in three
+flavours. The first one `bmc_ltl` was developed to illustrate the way one could
+use the NuSMV api exposed throught pynusmv to easily carry out sat based bounded
+model checking. This tool uses the NuSMV syntax for LTL properties.
+
+The second alternative `bmc_ltl_li` pursues the same objective but illustrates
+in greater depth how one can use the bmc related capabilities of pynusmv to
+write verification tools. (Uses less high level apis). This tool uses the NuSMV
+syntax for LTL properties.
+
+The third one `bmc_ltl_py` illustrates how easily one can use the bmc extension
+of pynusmv to create tools that verify custom logics. This tool uses a different
+syntax from the standard SMV one.
+
+#### Syntax of bmc_ltl_py
+````
+LTL         :=   '!'  LTL
+             |   '[]' LTL
+             |   '<>' LTL
+             |   '()' LTL
+             |   LTL 'U'   LTL
+             |   LTL 'W'   LTL
+             |   LTL '&'   LTL
+             |   LTL '|'   LTL
+             |   LTL '^'   LTL
+             |   LTL '=>'  LTL
+             |   LTL '<=>' LTL
+             |   comparison
+
+
+comparison  :=   arith '<'  arith
+             |   arith '<=' arith
+             |   arith '>'  arith
+             |   arith '>=' arith
+             |   arith '='  arith
+             |   arith '!=' arith
+             |   arith
+
+arith       := - arith
+             |   arith '<<'  arith
+             |   arith '>>'  arith
+             |   arith '*'   arith
+             |   arith '/'   arith
+             |   arith 'mod' arith
+             |   arith '+'   arith
+             |   arith '-'   arith
+             |   atom
+
+atom        := TRUE | FALSE | variable | number
+
+variable    := [a-zA-Z_@]+[a-zA-Z0-9_@.]*
+number      := [0-9]+
+````
+
+#### More information
+More information and details about these tools can be found in sections 4.1-4.2 of
+[GP16]http://dial.uclouvain.be/downloader/downloader.php?pid=thesis%3A4575&datastream=PDF_01
+
 
 ## REFERENCES
 * [BP12] Simon Busard, Charles Pecheur: Rich Counter-Examples for Temporal-Epistemic Logic Model Checking. IWIGP 2012: 39-53
 * [BPQR13] Simon Busard, Charles Pecheur, Hongyang Qu, Franco Raimondi: Reasoning about Strategies under Partial Observability and Fairness Constraints. Proceedings of SR 2013, EPTCS Vol. 112, pp. 71–79, 2013.
 * [PL03] W.Penczek, A.Lomuscio: Verifying epistemic properties of multi-agent systems via bounded model checking. Fundamenta Informaticae, 55(2) :167–185, 2003.
 * [PR07] Charles Pecheur, Franco Raimondi: Symbolic Model Checking of Logics with Actions. MoChArt 2006: 113-128
+* [GP16] Xavier Gillard: Adding SAT-based model checking to the PyNuSMV framework. ([MSc Thesis]http://dial.uclouvain.be/downloader/downloader.php?pid=thesis%3A4575&datastream=PDF_01)
+* [PCC02] Charles Pecheur, Alessandro Cimatti, Roberto Cavada: Formal verification of diagnosability via symbolic model checking. Workshop on Model Checking and Artificial Intelligence (MoChArt-2002), Lyon, France. 2002.
+* [BCZ99] Armin Biere, Alessandro Cimatti, Edmund Clarke, Yunshan Zhu: Symbolic model checking without BDDs. In International conference on tools and algorithms for the construction and analysis of systems (pp. 193-207). Springer Berlin Heidelberg.
+* [BCCSZ03] Armin Biere, Alessandro Cimatti, Edmund Clarke, Ofer Strichman, Yunshan Zhu, Y. (2003). Bounded model checking. Advances in computers, 58, 117-148.
 
 ## Credits
 PyNuSMV is developed, maintained and distributed by the LVL Group at Université
