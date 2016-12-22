@@ -55,6 +55,8 @@ class TestCheck(unittest.TestCase):
                 print(i.get_str_values())
         
     
+
+    @unittest.skip("Causes unexpected SEGFAULT")
     def test_cardgame(self):
         fsm = self.cardgame()
         
@@ -65,6 +67,7 @@ class TestCheck(unittest.TestCase):
         self.assertTrue(check(fsm, parseATLK("<'player'> F 'win'")[0]))
         
 
+    @unittest.skip("Causes unexpected SEGFAULT")
     def test_transmission(self):
         fsm = self.transmission()
         
@@ -80,6 +83,8 @@ class TestCheck(unittest.TestCase):
 
                              
                              
+
+    @unittest.skip("Causes unexpected SEGFAULT")
     def test_tictactoe(self):
         fsm = self.tictactoe()
         
