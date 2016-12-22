@@ -36,13 +36,13 @@ setup(name             = 'pynusmv-tools',
             # BMC tools
             'diagnos=tools.diagnosability:main',
             # LTL BMC - directly using NuSMV api to generate the problem (fastest)
-            'bmc_ltl=tools.bmcLTL.alternative1:main',
+            'bmc_ltl=tools.bmcLTL.bmc_ltl:main',
             # LTL BMC - using the lower interface functions to generate the
             # problem (close to a performance tie with alternative1 + most flexible
             # implementation)
-            'bmc_ltl_li=tools.bmcLTL.alternative2:main',
+            'bmc_ltl_li=tools.bmcLTL.bmc_ltl_li:main',
             # LTL BMC - not using apis from pynusmv.bmc.*
-            'bmc_ltl_py=tools.bmcLTL.main:main'
+            'bmc_ltl_py=tools.bmcLTL.bmc_ltl_py:main'
         ]
       }
 )
