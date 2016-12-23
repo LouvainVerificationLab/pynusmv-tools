@@ -12,7 +12,7 @@
 from setuptools import setup, find_packages
 
 setup(name             = 'pynusmv-tools',
-      version          = "1.0rc5",
+      version          = "1.0rc6",
       author           = "Simon BUSARD, Xavier GILLARD",
       author_email     = "simon.busard@uclouvain.be, xavier.gillard@uclouvain.be",
       url              = "http://lvl.info.ucl.ac.be/Tools/PyNuSMV",
@@ -21,28 +21,28 @@ setup(name             = 'pynusmv-tools',
       install_requires = ['pynusmv'],
       entry_points     = {
         'console_scripts' : [
-            'ctl=tools.ctl.CTLcheck:main',
-            'fairctl=tools.fairctl.FairCTLcheck:main',
-            'ctlk=tools.ctlk.cmd.cmd:main',
-            'arctl=tools.arctl.cmd.trace:main',
-            'tlace=tools.tlace.tlace:main',
+            'ctl=pynusmv_tools.ctl.CTLcheck:main',
+            'fairctl=pynusmv_tools.fairctl.FairCTLcheck:main',
+            'ctlk=pynusmv_tools.ctlk.cmd.cmd:main',
+            'arctl=pynusmv_tools.arctl.cmd.trace:main',
+            'tlace=pynusmv_tools.tlace.tlace:main',
             # MAS
-            'atl=tools.atl.check:main',
-            'atlk_fo=tools.atlkFO.check:main',
-            'atlk_po=tools.atlkPO.check:main',
+            'atl=pynusmv_tools.atl.check:main',
+            'atlk_fo=pynusmv_tools.atlkFO.check:main',
+            'atlk_po=pynusmv_tools.atlkPO.check:main',
             # utils
-            'smv2dot=tools.dotDump:main',
-            'smv_cmp=tools.compare:main',
+            'smv2dot=pynusmv_tools.dotDump:main',
+            'smv_cmp=pynusmv_tools.compare:main',
             # BMC tools
-            'diagnos=tools.diagnosability:main',
+            'diagnos=pynusmv_tools.diagnosability:main',
             # LTL BMC - directly using NuSMV api to generate the problem (fastest)
-            'bmc_ltl=tools.bmcLTL.bmc_ltl:main',
+            'bmc_ltl=pynusmv_tools.bmcLTL.bmc_ltl:main',
             # LTL BMC - using the lower interface functions to generate the
             # problem (close to a performance tie with alternative1 + most flexible
             # implementation)
-            'bmc_ltl_li=tools.bmcLTL.bmc_ltl_li:main',
+            'bmc_ltl_li=pynusmv_tools.bmcLTL.bmc_ltl_li:main',
             # LTL BMC - not using apis from pynusmv.bmc.*
-            'bmc_ltl_py=tools.bmcLTL.bmc_ltl_py:main'
+            'bmc_ltl_py=pynusmv_tools.bmcLTL.bmc_ltl_py:main'
         ]
       },
       # TESTS

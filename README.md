@@ -20,7 +20,7 @@ pip3 install pynusmv-tools
 ## Contents
 
 ### Tree-Like Annotated Counter-Examples
-This tool is provided in the `tools.tlace` package.
+This tool is provided in the `pynusmv_tools.tlace` package.
 
 Tree-Like Annotated Counter-Examples (TLACEs for short) are rich branching counter-examples [BP12]. This tool extends NuSMV explanations to produce these rich counter-examples instead of single paths. It uses NuSMV model checking algorithms and path explanation generators (ex_explain, eg_explain, eu_explain), the parser for CTL formulas, etc. The result is a tool taking an SMV model as argument, checking all CTL properties of the model and producing TLACEs when the property is violated.
 
@@ -32,11 +32,11 @@ where MODEL is an SMV model. The tool computes the given model, check all its CT
 
 
 ### ARCTL with TLACE generation
-Action-Restricted CTL (ARCTL for short) is an extension of CTL where quantified paths are restricted to paths of actions satisfying a propositional property [PR07]. This tool is defined in the `tools.arctl` package.
+Action-Restricted CTL (ARCTL for short) is an extension of CTL where quantified paths are restricted to paths of actions satisfying a propositional property [PR07]. This tool is defined in the `pynusmv_tools.arctl` package.
 
-It performs ARCTL model checking on SMV models and produces counter-examples and witnesses to explain ARCTL properties violation or satisfaction. These diagnostics can be either simple paths of the system or full TLACEs; TLACEs are defined in the separated sub-package `tools.arctl.tlace`.
+It performs ARCTL model checking on SMV models and produces counter-examples and witnesses to explain ARCTL properties violation or satisfaction. These diagnostics can be either simple paths of the system or full TLACEs; TLACEs are defined in the separated sub-package `pynusmv_tools.arctl.tlace`.
 
-Finally, this tool provides two CLI to use these functionalities; these CLI are defined in the sub-package `tools.arctl.cmd`. `tools.arctl.cmd.trace` is a CLI that allows to read a system from an SMV model and to check ARCTL specifications over it. Whatever the result of the verification, this CLI produces a diagnostic to explain the verification outcome. This CLI produces simple paths of the system as diagnostics. On the other hand, `tools.arctl.cmd.tlace` provides the same functionalities but produces TLACEs as diagnostics.
+Finally, this tool provides two CLI to use these functionalities; these CLI are defined in the sub-package `pynusmv_tools.arctl.cmd`. `pynusmv_tools.arctl.cmd.trace` is a CLI that allows to read a system from an SMV model and to check ARCTL specifications over it. Whatever the result of the verification, this CLI produces a diagnostic to explain the verification outcome. This CLI produces simple paths of the system as diagnostics. On the other hand, `pynusmv_tools.arctl.cmd.tlace` provides the same functionalities but produces TLACEs as diagnostics.
 
 To run this tool, launch the following command:
 ````
@@ -82,9 +82,9 @@ where model is the path to a NuSMV model. The tool loads the model, checks every
 
 
 ### Multi-agent systems
-An implementation of Multi-agent systems (MAS) is provided with PyNuSMV. The tool is a library to define and manipulate MASs with NuSMV. To load a model and get the corresponding MAS, you have to use `tools.mas.glob` to load a model (`load_from_file` function) and to get the MAS (mas function).
+An implementation of Multi-agent systems (MAS) is provided with PyNuSMV. The tool is a library to define and manipulate MASs with NuSMV. To load a model and get the corresponding MAS, you have to use `pynusmv_tools.mas.glob` to load a model (`load_from_file` function) and to get the MAS (mas function).
 
-On a MAS, you can perform any action given by a PyNuSMV BddFsm, plus additional functionalities like getting equivalent states according to a set of agents' knowledge or getting the protocol of any subset of agents (see `tools.mas.mas` for more information).
+On a MAS, you can perform any action given by a PyNuSMV BddFsm, plus additional functionalities like getting equivalent states according to a set of agents' knowledge or getting the protocol of any subset of agents (see `pynusmv_tools.mas.mas` for more information).
 
 The assumptions on the given SMV model representing a MAS are the following:
  - Every module instance of the MAIN module is considered as an agent;
