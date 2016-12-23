@@ -44,5 +44,8 @@ setup(name             = 'pynusmv-tools',
             # LTL BMC - not using apis from pynusmv.bmc.*
             'bmc_ltl_py=tools.bmcLTL.bmc_ltl_py:main'
         ]
-      }
+      },
+      # TESTS
+      test_suite='nose.collector',
+      tests_require=['nose']
 )
