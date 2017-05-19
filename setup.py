@@ -12,7 +12,7 @@
 from setuptools import setup, find_packages
 
 setup(name             = 'pynusmv-tools',
-      version          = "1.0rc6",
+      version          = "1.0rc7",
       author           = "Simon BUSARD, Xavier GILLARD",
       author_email     = "simon.busard@uclouvain.be, xavier.gillard@uclouvain.be",
       url              = "http://lvl.info.ucl.ac.be/Tools/PyNuSMV",
