@@ -30,7 +30,7 @@ setup(name             = 'pynusmv-tools',
             'atl=pynusmv_tools.atl.check:main',
             'atlk_fo=pynusmv_tools.atlkFO.check:main',
             'atlk_po=pynusmv_tools.atlkPO.check:main',
-            'atlk_po=pynusmv_tools.atlk_irf:main',
+            'atlk_irf=pynusmv_tools.atlk_irf:main',
             # utils
             'smv2dot=pynusmv_tools.dotDump:main',
             'smv_cmp=pynusmv_tools.compare:main',
