@@ -134,6 +134,19 @@ The grammar for ATLK properties phi (under both semantics) is the following:
 where EXPR is any simple expression over variables of the system, enclosed into simple quotes (e.g. `EXPR = 'transmission = completed'` or `EXPR = 'v = 3'`), AGENT is an agent name enclosed into simple quotes, and GROUP is a comma-separated list of agent names (e.g. GROUP = 'sender', 'transmitter' or AGENT = 'dealer').
 
 
+A second implementation of the algorithms can be run with
+````
+atlk_irf -m [model] -p [property]
+````
+
+[property] is as above, but [model] can be either a model as above, or a python module containing the `model()` function, that returns the SMV model itself. If the module contains a `agents()` function, it is used to retreive the list of agents of the model (instead of infering them as explained above).
+
+The tool supports several command-line arguments. For their list and descriptions, use
+````
+atlk_irf --help
+````
+
+
 ### DOT model export
 A DOT model export tool is provided. To run this tool, run
 ````
