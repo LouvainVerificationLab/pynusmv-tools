@@ -1,0 +1,26 @@
+--- Little example with one agent
+---
+--- Simon Busard <simon.busard@uclouvain.be>, 27/07/17
+
+
+MODULE Agent(o)
+    IVAR action: {a, b};
+    TRANS action in ((o = 1) ? {a, b} : {a})
+
+MODULE main
+    VAR state: 1 .. 5;
+        o: 1 .. 4;
+        agent: Agent(o);
+    
+    INIT state in {1, 5} & o = 1
+    TRANS next(state) = case
+                            state = 1 & agent.action = a: 3;
+                            state = 1 & agent.action = b: 2;
+                            state = 5 & agent.action = a: 4;
+                            state = 5 & agent.action = b: 2;
+                            state = 2: 3;
+                            TRUE: state;
+                        esac
+    TRANS next(o) = ((next(state) = 5) ? 1 : next(state))
+
+                            

@@ -16,7 +16,7 @@ def check(mas, spec):
     
     """
     sat = evalATL(mas, spec)
-    return (~sat & mas.bddEnc.statesInputsMask & mas.init).is_false()    
+    return (~sat & mas.bddEnc.statesInputsMask & mas.init).is_false()
     
 def process(allargs):
     """

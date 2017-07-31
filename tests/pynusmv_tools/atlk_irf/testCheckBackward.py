@@ -25,6 +25,13 @@ class TestCheckBackward(unittest.TestCase):
         fsm = glob.mas()
         self.assertIsNotNone(fsm)
         return fsm
+    
+    
+    def little2(self):
+        glob.load_from_file("tests/pynusmv_tools/atlkPO/models/little2.smv")
+        fsm = glob.mas()
+        self.assertIsNotNone(fsm)
+        return fsm
         
     def cardgame(self):
         glob.load_from_file("tests/pynusmv_tools/atlkPO/models/cardgame.smv")
@@ -104,3 +111,15 @@ class TestCheckBackward(unittest.TestCase):
         self.assertFalse(check(fsm, parseATLK("<'sender'> X 'received'")[0], implementation="backward"))
         self.assertTrue(check(fsm, parseATLK("<'transmitter'> X ~'received'")[0], implementation="backward"))
         self.assertFalse(check(fsm, parseATLK("<'transmitter'> F 'received'")[0], implementation="backward"))
+    
+    def test_little2(self):
+        fsm = self.little2()
+        
+        self.assertTrue(fsm.check_mas())
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="naive"))
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="partial"))
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="early"))
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="naive", pre_filtering=True))
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="partial", pre_filtering=True))
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="early", pre_filtering=True))
+        self.assertTrue(check(fsm, parseATLK("<'agent'> F 'o = 3'")[0], implementation="backward"))

@@ -16,7 +16,7 @@ from ..atlkFO.ast import (TrueExp, FalseExp, Init, Reachable,
 from ..atlkFO.eval import (fair_states, ex, eg, eu, nk, ne, nd, nc)
 
 from .common import *
-from .common import pre_ce_moves
+from .common import pre_ce_moves, is_conflicting, split_conflicting
 from .utils import *
 
 GC_FREQUENCE = 100
@@ -386,7 +386,8 @@ def eval_strat(mas, formula, states):
                                      strat,
                                      equiv_states,
                                      sub_1,
-                                     sub_2)
+                                     sub_2,
+                                     BDD.false(mas))
             equiv_states -= sat
             if equiv_states.is_false():
                 break
@@ -397,7 +398,7 @@ def eval_strat(mas, formula, states):
                         str(formula))
 
 
-def eval_backward_ceu(mas, agents, strat, states, sub_1, sub_2):
+def eval_backward_ceu(mas, agents, strat, states, sub_1, sub_2, exclude):
     """
     Return the subset of states such that there exists a backward extension of
     strat with states of sub_1 | sub_2.
@@ -416,39 +417,128 @@ def eval_backward_ceu(mas, agents, strat, states, sub_1, sub_2):
     if nb_strats % GC_FREQUENCE == 0:
         gc.collect()
     
+    strat_states = strat.forsome(mas.bddEnc.inputsCube)
+    
     notlose = filter_ceu(mas,
                          agents,
                          sub_1,
-                         strat.forsome(mas.bddEnc.inputsCube),
+                         strat_states,
                          mas.protocol(agents))
     lose = states - (all_equiv_sat(mas, agents, notlose) & states)
     states -= lose
     if states.is_false():
         return states
     
-    win = (all_equiv_sat(mas, agents, strat.forsome(mas.bddEnc.inputsCube)) &
-           states)
+    win = all_equiv_sat(mas, agents, strat_states) & states
     states -= win
     if states.is_false():
         return win
     
     sat = win
     
-    new_moves = (pre_ce_moves(mas, agents, strat, BDD.true(mas)) &
-                 (sub_1 | sub_2) &
-                 mas.protocol(agents)) - strat
+    new_moves = ((pre_ce_moves(mas,
+                               agents,
+                               strat,
+                               mas.protocol(agents) - exclude) &
+                  sub_1) - strat) & mas.bddEnc.statesInputsMask
     compatible = compatible_moves(mas, agents, new_moves, strat)
     if compatible.is_false():
         return sat
+    
     states -= sat
-    for new_strat in split(mas, agents, compatible):
+    
+    for new_strat in split_all(mas, agents, compatible):
         sat |= eval_backward_ceu(mas,
                                  agents,
                                  strat | new_strat,
                                  states,
                                  sub_1,
-                                 sub_2)
+                                 sub_2,
+                                 exclude | (new_moves - new_strat))
         states -= sat
         if states.is_false():
             return sat
     return sat
+
+
+# ---- split ------------------------------------------------------------------
+
+def split_one_all(mas, agents, agent, moves):
+    """
+    Split one equivalence class of moves and return couples composed of
+    a split and the rest of moves to split; the last couple is the rest of
+    moves to split only, the split being empty.
+    
+    mas -- a multi-agents system;
+    agents -- a subset of agents of mas;
+    agent -- an agent of agents;
+    moves -- a subset of moves for agents.
+    
+    Return a generator of all couples of splits and rest of moves, the last
+    couple containing an empty split.
+    
+    """
+    if moves.is_false():
+        yield (moves, moves)
+        return
+        
+    else:
+        # Get one equivalence class
+        si = mas.pick_one_state_inputs(moves)
+        s = si.forsome(mas.bddEnc.inputsCube)
+        eqs = get_equiv_class(mas, [agent], s)
+        eqcl = moves & eqs
+        
+        # Remove it from strats
+        moves = moves - eqcl
+        
+        # The current equivalence class is conflicting
+        for non_conflicting in split_conflicting(mas,
+                                                 agents,
+                                                 agent,
+                                                 eqcl):
+            yield (non_conflicting, moves)
+        yield (BDD.false(mas.bddEnc.DDmanager), moves)
+        return
+
+
+def split_agent_all(mas, agents, agent, moves):
+    """
+    Split the given set of moves for agents into its greatest subsets
+    non-conflicting for agent.
+    
+    mas -- a multi-agents system;
+    agents -- a subset of agents of mas;
+    agent -- an agent of agents;
+    moves -- a subset of moves for agents.
+    """
+    if moves.is_false():
+        yield moves
+    else:
+        for nc, rest in split_one_all(mas, agents, agent, moves):
+            for strat in split_agent_all(mas, agents, agent, rest):
+                yield nc | strat
+
+
+def split_all(mas, agents, moves):
+    """
+    Split the given moves for agents into all its non-conflicting greatest
+    subsets.
+    
+    mas -- a multi-agents system;
+    agents -- a subset of agents of mas (as a list);
+    moves -- a subset of moves for agents.
+    
+    Return a generator of all non-conflicting greatest subsets of moves.
+    """
+    if not agents:
+        yield moves
+    else:
+        agent = agents[0]
+        others = agents[1:]
+        seen = {BDD.false(mas)}
+        for others_strat in split_all(mas, others, moves):
+            for strat in split_agent_all(mas, agents, agent, others_strat):
+                if strat not in seen:
+                    seen.add(strat)
+                    yield strat
