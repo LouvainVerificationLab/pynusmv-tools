@@ -147,6 +147,13 @@ atlk_irf --help
 ````
 
 
+### A framework for mu-calculus based logic explanations
+An implementation of a framework for mu-calculus based logic explanations is provided. It relies on the fact that many branching logics such as CTL, ATL, ARCTL, etc. can be translated into the mu-calculus. The framework lies in the `pynusmv_tools.mucalculus` package and provides
+ - a mu-calculus model checker that produces rich explanations
+ - a set of functionalities to translate these rich explanations back into the original logic
+ - a graphical interface based on tkinter to display and manipulate the translated explanations.
+
+
 ### DOT model export
 A DOT model export tool is provided. To run this tool, run
 ````

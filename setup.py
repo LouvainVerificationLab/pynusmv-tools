@@ -12,13 +12,13 @@
 from setuptools import setup, find_packages
 
 setup(name             = 'pynusmv-tools',
-      version          = "1.0rc8",
+      version          = "1.0rc9",
       author           = "Simon BUSARD, Xavier GILLARD",
       author_email     = "simon.busard@uclouvain.be, xavier.gillard@uclouvain.be",
       url              = "http://lvl.info.ucl.ac.be/Tools/PyNuSMV",
       description      = "Tools, examples and experiments that showcase the potential uses for PyNuSMV",
       packages         = find_packages(),
-      install_requires = ['pynusmv'],
+      install_requires = ['pynusmv', 'tkCanvasGraph'],
       entry_points     = {
         'console_scripts' : [
             'ctl=pynusmv_tools.ctl.CTLcheck:main',
