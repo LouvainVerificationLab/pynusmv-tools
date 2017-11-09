@@ -305,46 +305,53 @@ def _get_path(elements):
     Return the path represented by elements, or None if elements does
     not define a path.
     
-    elements -- a set of elements; must define a path of at least two vertices
-                and one edge.
+    elements -- a set of elements.
     
     The returned path is a list where vertices alternate with edges.
+    The elements might define a loop; in this case, the first vertex is chosen
+    arbitrarily.
+    The elements might define a lasso; in this case, the first unrolling of the
+    loop is exposed.
     """
     edges = {e for e in elements if isinstance(e, GraphEdge)}
-    if len(edges) <= 0:
-        return None
-    
     vertices = {e for e in elements if isinstance(e, GraphVertex)}
-    if len(vertices) <= 1:
-        return None
-    
     graph = {v: {e for e in edges if e.origin == v}
              for v in vertices}
     
-    # Get source and destination
+    # Get source
     sources = {v for v in graph
                if len({e for e in edges if e.end == v}) <= 0}
-    if len(sources) != 1:
+    if len(sources) > 1:
+        # More than one source, it does not define a single path
         return None
-    source = next(iter(sources))
-    
-    destinations = {v for v, edges in graph.items()
-                    if len(edges) <= 0}
-    if len(destinations) != 1:
-        return None
-    destination = next(iter(destinations))
+    elif not sources:
+        # No source, pick any vertex
+        source = next(iter(vertices))
+    else:
+        # One source
+        source = next(iter(sources))
     
     path = [source]
-    vertices.remove(source)
-    while len(vertices) > 0:
+    while True:
         outgoings = graph[path[-1]]
-        if len(outgoings) != 1:
+        if len(outgoings) > 1:
+            # More than one outgoing edge, this is not a single path
             return None
+        elif not outgoings:
+            # No more nodes, end of path
+            break
+        
         outgoing = next(iter(outgoings))
         
-        path.append(outgoing)
-        path.append(outgoing.end)
-        vertices.remove(outgoing.end)
+        if outgoing.end in path:
+            # we reach a loop
+            path.append(outgoing)
+            path.append(outgoing.end)
+            break
+        
+        else:
+            path.append(outgoing)
+            path.append(outgoing.end)
     
     return path
 
